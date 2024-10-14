@@ -2,9 +2,7 @@
 
 ## Date: 14/10/2024
 
-### By: Dana Aldossary
-### By: Ali Hassan Habib
-### By: Ayah Ahmed
+### By: Dana Aldossary | Ali Hassan Habib | Ayah Ahmed
 
 
 ***
