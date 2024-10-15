@@ -1,5 +1,5 @@
 // Import mongoose
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 // Define the Game schema
 const gameSchema = mongoose.Schema(
@@ -10,10 +10,10 @@ const gameSchema = mongoose.Schema(
     age: String,
     midical_condition: String,
     image: String,
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comments" }],
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'comments' }]
   },
   { timestamps: true }
 )
 
 // Create and export the Game model
-module.exports = mongoose.model("Game", gameSchema)
+module.exports = mongoose.model('Game', gameSchema)
