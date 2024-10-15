@@ -4,7 +4,7 @@ const Games = require("../models/Games")
 const CreateComment = async (req, res) => {
   try {
     const { gamesId, comment, rate, id } = req.body
-    console.log(gamesId)
+    // console.log(gamesId)
 
     if (!comment || !rate) {
       return res.status(400).send("Comment and rating are required")
@@ -36,7 +36,6 @@ const GetComments = async (req, res) => {
   try {
     const gamesId = req.query.id
     const game = await Games.findById(gamesId).populate("comments")
-
     if (!game) {
       return res.status(404).send("Game not found")
     }
