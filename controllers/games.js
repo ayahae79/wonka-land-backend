@@ -1,11 +1,10 @@
-
 const Game = require('../models/Games');
 
 const gameController = {
   // Create a new game
   createGame: async (req, res) => {
-    const { name, height, weight, age, midical_condition,image } = req.body;
-    const game = new Game({ name, height, weight, age, midical_condition,image });
+    const { name, height, weight, age, midical_condition, image } = req.body;
+    const game = new Game({ name, height, weight, age, midical_condition, image });
     try {
       await game.save();
       res.status(201).send({ message: 'Game created successfully' });
@@ -42,9 +41,9 @@ const gameController = {
   // Update a game
   updateGame: async (req, res) => {
     const id = req.params.id;
-    const { name, height, weight, age, midical_condition,image } = req.body;
+    const { name, height, weight, age, midical_condition, image } = req.body;
     try {
-      const game = await Game.findByIdAndUpdate(id, { name, height, weight, age, midical_condition,image}, { new: true });
+      const game = await Game.findByIdAndUpdate(id, { name, height, weight, age, midical_condition, image }, { new: true });
       res.send({ message: 'Game updated successfully' });
     } catch (err) {
       res.status(400).send({ message: 'Error updating game', error: err });
