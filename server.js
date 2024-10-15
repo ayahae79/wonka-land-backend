@@ -29,16 +29,27 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')))
 
 
-app.use('/review', reviewRouter)
+
 
 // Database configuration (connect to DB)
 require("./config/db")
 
-// Routes
+
+
+
+
+// Mount additional routes
+
+
+
 const userRoute = require("./routes/user")
 const reviewRouter = require('./routes/review')
+const gamesRouter = require('./routes/games')
 // Mount user routes
 app.use("/user", userRoute)
+app.use('/review', reviewRouter)
+app.use('/game', gamesRouter)
+
 
 
 // Listen for HTTP requests on the specified PORT
