@@ -1,8 +1,10 @@
-const Game = require('../models/Games')
+
+const Game = require('../models/Games');
 
 const gameController = {
   // Create a new game
   createGame: async (req, res) => {
+
     const { name, height, weight, age, midical_condition, image } = req.body
     const game = new Game({
       name,
@@ -12,6 +14,7 @@ const gameController = {
       midical_condition,
       image
     })
+
     try {
       await game.save()
       res.status(201).send({ message: 'Game created successfully' })
@@ -59,6 +62,7 @@ const gameController = {
         return res.status(404).send({ message: 'Game not found' })
       }
       res.send({ message: 'Game updated successfully' })
+
     } catch (err) {
       res.status(400).send({ message: 'Error updating game', error: err })
     }
@@ -80,4 +84,6 @@ const gameController = {
   }
 }
 
+
 module.exports = gameController
+
