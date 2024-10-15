@@ -24,10 +24,11 @@ const db = require("./config/db")
 app.get("/", (req, res) => {
   res.send("Welcome to Wonka Land!")
 })
+const gamesRouter = require('./routes/games')
 
 // Mount additional routes
 // e.g., app.use("/api/games", require("./routes/gameRoutes"));
-
+app.use('/game', gamesRouter)
 // Listen for HTTP requests on the specified PORT
 app.listen(PORT, () => {
   console.log(`Server is running on PORT ${PORT}`)
