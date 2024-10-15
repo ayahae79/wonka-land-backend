@@ -1,7 +1,10 @@
 // Import necessary packages
-const express = require("express")
-const path = require("path")
-require("dotenv").config()
+const express = require('express')
+const path = require('path')
+require('dotenv').config()
+
+const reviewRouter = require('./routes/review')
+
 
 // Initialize express app
 const app = express()
@@ -15,18 +18,19 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // Serve static files from the 'public' folder
-app.use(express.static(path.join(__dirname, "public")))
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Database configuration (import the db connection file)
-const db = require("./config/db")
+const db = require('./config/db')
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Welcome to Wonka Land!")
+app.get('/', (req, res) => {
+  res.send('Welcome to Wonka Land!')
 })
 
-// Mount additional routes
-// e.g., app.use("/api/games", require("./routes/gameRoutes"));
+app.use('/review', reviewRouter)
+
+
 
 // Listen for HTTP requests on the specified PORT
 app.listen(PORT, () => {
