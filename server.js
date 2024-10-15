@@ -1,4 +1,6 @@
 // Import necessary packages
+
+
 const express = require("express")
 const path = require("path")
 require("dotenv").config()
@@ -24,15 +26,20 @@ app.use(
 )
 
 // Serve static files from the 'public' folder
-app.use(express.static(path.join(__dirname, "public")))
+app.use(express.static(path.join(__dirname, 'public')))
+
+
+app.use('/review', reviewRouter)
 
 // Database configuration (connect to DB)
 require("./config/db")
 
 // Routes
 const userRoute = require("./routes/user")
+const reviewRouter = require('./routes/review')
 // Mount user routes
 app.use("/user", userRoute)
+
 
 // Listen for HTTP requests on the specified PORT
 app.listen(PORT, () => {
