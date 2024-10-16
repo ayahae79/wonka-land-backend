@@ -1,8 +1,7 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const commentCtrl = require('../controllers/review')
-router.post('/add', commentCtrl.CreateComment)
-router.get('/detail', commentCtrl.GetComments)
-router.delete('/delete/:id', commentCtrl.DeleteComment)
+const commentCtrl = require("../controllers/review")
+router.post("/add", commentCtrl.CreateComment)
+router.delete("/delete/:id", commentCtrl.DeleteComment)
 
 module.exports = router
