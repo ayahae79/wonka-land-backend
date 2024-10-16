@@ -8,4 +8,5 @@ router.get('/games/:id', gameController.getGameById)
 router.put('/games/:id', gameController.updateGame)
 router.delete('/games/:id', gameController.deleteGame)
 
+
 module.exports = router
