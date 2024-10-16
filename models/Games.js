@@ -10,7 +10,7 @@ const gameSchema = mongoose.Schema(
     age: String,
     midical_condition: String,
     image: String,
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'comments' }]
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reviews' }]
   },
   { timestamps: true }
 )

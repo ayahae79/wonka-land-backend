@@ -55,9 +55,6 @@ const gameController = {
         { name, height, weight, age, midical_condition, image },
         { new: true }
       )
-      if (!game) {
-        return res.status(404).send({ message: 'Game not found' })
-      }
       res.send({ message: 'Game updated successfully' })
     } catch (err) {
       res.status(400).send({ message: 'Error updating game', error: err })
@@ -68,16 +65,18 @@ const gameController = {
   deleteGame: async (req, res) => {
     const id = req.params.id
     try {
-      const deletedGame = await Game.findByIdAndDelete(id)
-      if (!deletedGame) {
-        return res.status(404).send({ message: 'Game not found' })
+      const response = await axios.delete(`${BASE_URL}/game/games/${gameId}`);
+      if (response.status === 200) {
+        // Update the state to remove the deleted game
+        setGames((prevGames) => prevGames.filter((game) => game._id !== gameId));
+        console.log("Game deleted successfully:", gameId);
       }
-      res.send({ message: 'Game deleted successfully' })
-    } catch (err) {
-      console.error('Error deleting game:', err) // Log the error
-      res.status(500).send({ message: 'Error deleting game', error: err })
-    }
-  }
+    } catch (error) {
+      console.error('Failed to delete the game:', error.response ? error.response.data : error.message);
+    }}
 }
+
+
+
 
 module.exports = gameController
