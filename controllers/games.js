@@ -12,6 +12,7 @@ const gameController = {
       midical_condition,
       image
     })
+
     try {
       await game.save()
       res.status(201).send({ message: 'Game created successfully' })
@@ -65,18 +66,19 @@ const gameController = {
   deleteGame: async (req, res) => {
     const id = req.params.id
     try {
-      const response = await axios.delete(`${BASE_URL}/game/games/${gameId}`);
+      const response = await axios.delete(`${BASE_URL}/game/games/${gameId}`)
       if (response.status === 200) {
         // Update the state to remove the deleted game
-        setGames((prevGames) => prevGames.filter((game) => game._id !== gameId));
-        console.log("Game deleted successfully:", gameId);
+        setGames((prevGames) => prevGames.filter((game) => game._id !== gameId))
+        console.log('Game deleted successfully:', gameId)
       }
     } catch (error) {
-      console.error('Failed to delete the game:', error.response ? error.response.data : error.message);
-    }}
+      console.error(
+        'Failed to delete the game:',
+        error.response ? error.response.data : error.message
+      )
+    }
+  }
 }
-
-
-
 
 module.exports = gameController
