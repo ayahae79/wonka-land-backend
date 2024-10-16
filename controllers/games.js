@@ -15,9 +15,11 @@ const gameController = {
 
     try {
       await game.save()
-      res.status(201).send({ message: "Game created successfully" })
+      res.status(201).send({ message: 'Game created successfully', game })
     } catch (err) {
-      res.status(400).send({ message: "Error creating game", error: err })
+      res
+        .status(400)
+        .send({ message: 'Error creating game', error: err.message })
     }
   },
 
@@ -27,7 +29,10 @@ const gameController = {
       const games = await Game.find()
       res.send(games)
     } catch (err) {
-      res.status(500).send({ message: "Error retrieving games", error: err })
+
+      res
+        .status(500)
+        .send({ message: 'Error retrieving games', error: err.message })
     }
   },
 
@@ -37,12 +42,14 @@ const gameController = {
     try {
       const game = await Game.findById(id)
       if (!game) {
-        res.status(404).send({ message: "Game not found" })
-      } else {
-        res.json(game)
+
+        return res.status(404).send({ message: 'Game not found' })
       }
+      res.json(game)
     } catch (err) {
-      res.status(500).send({ message: "Error retrieving game", error: err })
+      res
+        .status(500)
+        .send({ message: 'Error retrieving game', error: err.message })
     }
   },
 
@@ -56,9 +63,14 @@ const gameController = {
         { name, height, weight, age, midical_condition, image },
         { new: true }
       )
-      res.send({ message: "Game updated successfully" })
+      if (!game) {
+        return res.status(404).send({ message: 'Game not found' })
+      }
+      res.send({ message: 'Game updated successfully', game })
     } catch (err) {
-      res.status(400).send({ message: "Error updating game", error: err })
+      res
+        .status(400)
+        .send({ message: 'Error updating game', error: err.message })
     }
   },
 
@@ -66,17 +78,17 @@ const gameController = {
   deleteGame: async (req, res) => {
     const id = req.params.id
     try {
-      const response = await axios.delete(`${BASE_URL}/game/games/${gameId}`)
-      if (response.status === 200) {
-        // Update the state to remove the deleted game
-        setGames((prevGames) => prevGames.filter((game) => game._id !== gameId))
-        console.log("Game deleted successfully:", gameId)
+
+      const deletedGame = await Game.findByIdAndDelete(id)
+      if (!deletedGame) {
+        return res.status(404).send({ message: 'Game not found' })
       }
-    } catch (error) {
-      console.error(
-        "Failed to delete the game:",
-        error.response ? error.response.data : error.message
-      )
+      res.send({ message: 'Game deleted successfully' })
+    } catch (err) {
+      res
+        .status(500)
+        .send({ message: 'Error deleting game', error: err.message })
+
     }
   },
   getCommentsByGameId: async (req, res) => {

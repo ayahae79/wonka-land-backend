@@ -1,5 +1,5 @@
-const Reviews = require("../models/Reviews")
-const Games = require("../models/Games")
+const Reviews = require('../models/Reviews')
+const Games = require('../models/Games')
 
 const CreateComment = async (req, res) => {
   try {
@@ -7,30 +7,31 @@ const CreateComment = async (req, res) => {
     // console.log(gamesId)
 
     if (!comment || !rate) {
-      return res.status(400).send("Comment and rating are required")
+      return res.status(400).send('Comment and rating are required')
     }
 
     const newReview = new Reviews({
       game,
       comment,
       rate,
-      user,
+      user
     })
 
     await newReview.save()
 
     await Games.findByIdAndUpdate(game, {
-      $push: { comments: newReview._id },
+      $push: { comments: newReview._id }
     })
 
     return res
       .status(201)
-      .json({ message: "Comment added successfully!", review: newReview })
+      .json({ message: 'Comment added successfully!', review: newReview })
   } catch (error) {
     console.log(error)
-    return res.status(500).send("Error saving comment!")
+    return res.status(500).send('Error saving comment!')
   }
 }
+
 
 const DeleteComment = async (req, res) => {
   try {
@@ -45,14 +46,15 @@ const DeleteComment = async (req, res) => {
       { $pull: { comments: commentId } }
     )
 
-    return res.status(200).send("Comment deleted successfully!")
+    return res.status(200).send('Comment deleted successfully!')
   } catch (error) {
     console.log(error)
-    return res.status(500).send("Error deleting comment.")
+    return res.status(500).send('Error deleting comment.')
   }
 }
 
 module.exports = {
   CreateComment,
   DeleteComment,
+
 }
