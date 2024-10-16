@@ -1,4 +1,4 @@
-const Game = require('../models/Games')
+const Game = require("../models/Games")
 
 const gameController = {
   // Create a new game
@@ -10,7 +10,7 @@ const gameController = {
       weight,
       age,
       midical_condition,
-      image
+      image,
     })
 
     try {
@@ -29,6 +29,7 @@ const gameController = {
       const games = await Game.find()
       res.send(games)
     } catch (err) {
+
       res
         .status(500)
         .send({ message: 'Error retrieving games', error: err.message })
@@ -41,6 +42,7 @@ const gameController = {
     try {
       const game = await Game.findById(id)
       if (!game) {
+
         return res.status(404).send({ message: 'Game not found' })
       }
       res.json(game)
@@ -76,6 +78,7 @@ const gameController = {
   deleteGame: async (req, res) => {
     const id = req.params.id
     try {
+
       const deletedGame = await Game.findByIdAndDelete(id)
       if (!deletedGame) {
         return res.status(404).send({ message: 'Game not found' })
@@ -85,8 +88,23 @@ const gameController = {
       res
         .status(500)
         .send({ message: 'Error deleting game', error: err.message })
+
     }
-  }
+  },
+  getCommentsByGameId: async (req, res) => {
+    const gameId = req.params.id
+
+    try {
+      const game = await Game.findById(gameId).populate("comments")
+      if (!game) {
+        return res.status(404).send({ message: "Game not found" })
+      }
+
+      res.send({ comments: game.comments })
+    } catch (err) {
+      res.status(500).send({ message: "Error retrieving comments", error: err })
+    }
+  },
 }
 
 module.exports = gameController

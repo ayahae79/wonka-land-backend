@@ -32,23 +32,6 @@ const CreateComment = async (req, res) => {
   }
 }
 
-const GetComments = async (req, res) => {
-  try {
-    const gamesId = req.query.id
-    const game = await Games.findById(gamesId).populate('comments')
-    if (!game) {
-      return res.status(404).send('Game not found')
-    }
-
-    return res.json({
-      game,
-      comments: game.comments || []
-    })
-  } catch (error) {
-    console.log(error)
-    return res.status(500).send('Error retrieving game data')
-  }
-}
 
 const DeleteComment = async (req, res) => {
   try {
@@ -72,6 +55,6 @@ const DeleteComment = async (req, res) => {
 
 module.exports = {
   CreateComment,
-  GetComments,
-  DeleteComment
+  DeleteComment,
+
 }
